@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="theme-color" content="#17131b">
+	<title>Gig requests | The music Collective</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+	<style>
+		:root { color-scheme: dark; --ink: #f5eee4; --paper: #17131b; --crimson: #e3697d; --gold: #f3bc58; --muted: #c2b7c2; --line: #493743; }
+		* { box-sizing: border-box; }
+		body { margin: 0; background-color: var(--paper); background-image: radial-gradient(rgba(243, 188, 88, .08) .7px, transparent .7px); background-size: 16px 16px; color: var(--ink); font-family: "DM Sans", sans-serif; }
+		a { color: inherit; }
+		.site-header { align-items: center; background: rgba(23, 19, 27, .96); display: flex; justify-content: space-between; margin: 0 auto; max-width: 1240px; min-height: 78px; padding: 14px 32px; }
+		.brand { font-size: 13px; font-weight: 700; letter-spacing: 1.4px; line-height: 1.35; text-decoration: none; }
+		.brand span { color: var(--crimson); }
+		nav { display: flex; gap: 22px; }
+		nav a { font-size: 13px; font-weight: 600; text-decoration: none; }
+		main { margin: 0 auto; max-width: 1080px; padding: 52px 32px 88px; }
+		.heading { align-items: end; border-bottom: 1px solid var(--line); display: flex; gap: 24px; justify-content: space-between; padding-bottom: 26px; }
+		.eyebrow { color: var(--crimson); font-size: 11px; font-weight: 700; letter-spacing: 1.8px; text-transform: uppercase; }
+		h1, h2 { font-family: "Playfair Display", Georgia, serif; }
+		h1 { font-size: 48px; line-height: 1.08; margin: 10px 0; }
+		.summary { color: var(--muted); font-size: 14px; margin: 0; }
+		.button { background: var(--crimson); border: 0; color: white; cursor: pointer; display: inline-block; font: inherit; font-size: 12px; font-weight: 700; padding: 13px 16px; text-decoration: none; }
+		.button:hover, .button:focus-visible { background: var(--ink); }
+		.stats { border-bottom: 1px solid var(--line); display: grid; grid-template-columns: repeat(3, 1fr); margin-bottom: 28px; }
+		.stat { border-right: 1px solid var(--line); padding: 20px 18px 20px 0; }
+		.stat + .stat { padding-left: 22px; }
+		.stat:last-child { border-right: 0; }
+		.stat strong { display: block; font-family: "Playfair Display", Georgia, serif; font-size: 30px; }
+		.stat span { color: var(--muted); font-size: 12px; }
+		.calendar { border-bottom: 1px solid var(--line); margin: 0 0 34px; padding: 0 0 30px; }
+		.calendar-heading { align-items: center; display: flex; flex-wrap: wrap; gap: 16px; justify-content: space-between; margin-bottom: 16px; }
+		.calendar-heading h2 { font-size: 28px; margin: 0; }
+		.calendar-controls { align-items: center; display: flex; flex-wrap: wrap; gap: 8px; }
+		.calendar-button { background: rgba(255,255,255,.72); border: 1px solid var(--line); color: var(--ink); cursor: pointer; font: inherit; font-size: 12px; font-weight: 700; min-height: 40px; padding: 9px 12px; }
+		.calendar-button:hover, .calendar-button:focus-visible { background: white; border-color: var(--crimson); }
+		.calendar-select { min-height: 40px; }
+		.calendar-grid { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); }
+		.calendar-weekday { color: var(--muted); font-size: 11px; font-weight: 700; padding: 10px 8px; text-align: right; text-transform: uppercase; }
+		.calendar-day { background: rgba(255,255,255,.55); border: 1px solid var(--line); min-height: 112px; min-width: 0; padding: 8px; }
+		.calendar-day + .calendar-day { border-left: 0; }
+		.calendar-day.is-outside { background: rgba(225,218,229,.45); color: #8b8190; }
+		.calendar-day.is-today { box-shadow: inset 0 0 0 2px var(--gold); }
+		.calendar-date { display: block; font-size: 12px; font-weight: 700; margin-bottom: 7px; text-align: right; }
+		.calendar-events { display: grid; gap: 4px; }
+		.calendar-event { background: #f7edcf; border: 0; border-left: 3px solid #b78021; color: #503c14; cursor: pointer; display: grid; font: inherit; gap: 2px; min-width: 0; padding: 5px 6px; text-align: left; width: 100%; }
+		.calendar-event.is-confirmed { background: #e2f0e7; border-left-color: #28744a; color: #194b30; }
+		.calendar-event:hover, .calendar-event:focus-visible { outline: 2px solid currentColor; outline-offset: 1px; }
+		.event-time, .event-title { display: block; font-size: 10px; line-height: 1.3; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+		.event-title { font-weight: 700; }
+		.calendar-legend { align-items: center; color: var(--muted); display: flex; flex-wrap: wrap; font-size: 12px; gap: 16px; margin-top: 12px; }
+		.legend-item { align-items: center; display: inline-flex; gap: 7px; }
+		.legend-swatch { background: #e2f0e7; border-left: 3px solid #28744a; height: 14px; width: 14px; }
+		.legend-swatch.preview { background: #f7edcf; border-color: #b78021; }
+		.toolbar { align-items: center; display: flex; flex-wrap: wrap; gap: 12px; justify-content: space-between; margin-bottom: 18px; }
+		.view-switcher { display: flex; flex-wrap: wrap; gap: 8px; margin: 24px 0 14px; }
+		.view-tab { background: transparent; border: 1px solid var(--line); color: var(--ink); cursor: pointer; font: inherit; font-size: 13px; font-weight: 700; min-height: 42px; padding: 9px 14px; }
+		.view-tab[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: white; }
+		.view-tab:focus-visible, .secondary-button:focus-visible, .danger-button:focus-visible { outline: 2px solid var(--crimson); outline-offset: 2px; }
+		.trash-note { color: var(--muted); font-size: 13px; margin: 0 0 16px; }
+		.archive-note { color: var(--muted); font-size: 13px; margin: 0 0 16px; }
+		.filters { display: flex; flex: 1; flex-wrap: wrap; gap: 10px; }
+		input, select { background: rgba(255,255,255,.72); border: 1px solid #bfb0c5; border-radius: 2px; color: var(--ink); font: inherit; min-height: 42px; padding: 9px 11px; }
+		input { flex: 1; min-width: 210px; }
+		select:focus, input:focus { border-color: var(--crimson); outline: 2px solid rgba(146,27,61,.18); }
+		#request-list { display: grid; gap: 14px; }
+		.request { background: rgba(255,255,255,.75); border: 1px solid var(--line); border-left: 4px solid #bb8530; padding: 22px 24px; }
+		.request[data-status="Accepted"] { border-left-color: #28744a; }
+		.request[data-status="Declined"] { border-left-color: #8b4b53; }
+		.request[data-status="Considering"] { border-left-color: #386b83; }
+		.request-top { align-items: start; display: flex; gap: 18px; justify-content: space-between; }
+		.request h2 { font-size: 24px; margin: 0 0 5px; }
+		.request-meta { color: var(--muted); font-size: 13px; line-height: 1.7; }
+		.status-control { display: grid; gap: 6px; min-width: 150px; }
+		.request-actions { align-items: center; display: flex; flex-wrap: wrap; gap: 8px; }
+		.secondary-button, .danger-button { border: 1px solid var(--line); cursor: pointer; font: inherit; font-size: 12px; font-weight: 700; min-height: 40px; padding: 9px 12px; }
+		.secondary-button { background: white; color: var(--ink); }
+		.danger-button { background: #8b283c; border-color: #8b283c; color: white; }
+		.secondary-button:hover { background: #e8e0eb; }
+		.danger-button:hover { background: #681b2b; }
+		.trash-expiry { color: var(--muted); font-size: 12px; line-height: 1.5; }
+		.status-control label, .detail-label { color: var(--muted); font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; }
+		.details { border-top: 1px solid var(--line); display: grid; gap: 18px 24px; grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: 18px; padding-top: 18px; }
+		.detail { min-width: 0; }
+		.detail-label { display: block; margin-bottom: 5px; }
+		.detail-value { font-size: 14px; line-height: 1.55; overflow-wrap: anywhere; white-space: pre-wrap; }
+		.detail-value a { color: var(--crimson); }
+		.empty, .error { color: var(--muted); padding: 34px 0; }
+		footer { align-items: center; background: var(--crimson); color: white; display: flex; justify-content: space-between; padding: 22px max(32px, calc((100vw - 1176px) / 2)); }
+		footer p { font-size: 12px; margin: 0; }
+		footer a { color: var(--gold); font-size: 12px; font-weight: 700; }
+		@media (max-width: 700px) { .site-header { align-items: flex-start; flex-direction: column; gap: 14px; padding: 18px 22px; } main { padding: 38px 22px 62px; } .heading { align-items: flex-start; flex-direction: column; } h1 { font-size: 40px; } .stats { grid-template-columns: repeat(3, minmax(0, 1fr)); } .stat { padding-right: 8px; } .stat + .stat { padding-left: 10px; } .stat strong { font-size: 25px; } .request { padding: 18px; } .request-top { flex-direction: column; } .details { grid-template-columns: repeat(2, minmax(0, 1fr)); } footer { align-items: flex-start; flex-direction: column; gap: 10px; padding: 20px 22px; } }
+		@media (max-width: 420px) { .details { grid-template-columns: 1fr; } }
+		@media (max-width: 700px) { .calendar-heading { align-items: flex-start; flex-direction: column; } .calendar-grid { grid-template-columns: repeat(7, minmax(0, 1fr)); } .calendar-weekday { font-size: 9px; padding: 8px 2px; text-align: center; } .calendar-day { min-height: 76px; padding: 4px; } .calendar-date { font-size: 10px; margin-bottom: 4px; } .calendar-event { border-left-width: 2px; padding: 3px; } .event-time { display: none; } .event-title { font-size: 9px; } }
+		@media (max-width: 420px) { .calendar-day { min-height: 62px; padding: 2px; } .calendar-event { padding: 2px; } .event-title { font-size: 8px; } }
+		nav a:hover, nav a:focus-visible { color: var(--gold); }
+		.button { background: #8d3048; color: #fff7ed; }
+		.button:hover, .button:focus-visible { background: var(--crimson); }
+		.calendar-button, input, select { background: #211824; border-color: #594453; color: var(--ink); }
+		.calendar-button:hover, .calendar-button:focus-visible { background: #302337; border-color: var(--gold); }
+		.calendar-day { background: #211824; }
+		.calendar-day.is-outside { background: #19151d; color: #948795; }
+		.calendar-event { background: #44351e; border-left-color: var(--gold); color: #fff0c4; }
+		.calendar-event.is-confirmed { background: #1d3528; border-left-color: #63b482; color: #d7f1df; }
+		.legend-swatch { background: #1d3528; border-left-color: #63b482; }
+		.legend-swatch.preview { background: #44351e; border-color: var(--gold); }
+		.view-tab { background: transparent; color: var(--ink); }
+		.view-tab[aria-pressed="true"] { background: #8d3048; border-color: #8d3048; color: white; }
+		.view-tab:focus-visible, .secondary-button:focus-visible, .danger-button:focus-visible { outline-color: var(--gold); }
+		.request { background: #211824; border-color: var(--line); }
+		.secondary-button { background: #302337; border-color: #594453; color: var(--ink); }
+		.secondary-button:hover { background: #44334b; }
+		footer { background: #211824; }
+	</style>
+</head>
+<body>
+	<header class="site-header">
+		<div class="brand">THE<br><span>MUSIC COLLECTIVE</span></div>
+	</header>
+	<main>
+		<section class="heading">
+			<div><span class="eyebrow">Booking inbox</span><h1>Gig requests</h1><p class="summary" id="result-count">Loading requests...</p></div>
+			<button class="button" id="export-button" type="button">Download responses.json</button>
+		</section>
+		<section class="stats" aria-label="Request totals">
+			<div class="stat"><strong id="total-count">0</strong><span>Active requests</span></div>
+			<div class="stat"><strong id="new-count">0</strong><span>Need review</span></div>
+			<div class="stat"><strong id="accepted-count">0</strong><span>Accepted</span></div>
+		</section>
+		<section class="calendar" aria-labelledby="calendar-title">
+			<div class="calendar-heading">
+				<h2 id="calendar-title">Gig calendar</h2>
+				<div class="calendar-controls">
+					<button class="calendar-button" id="previous-month" type="button" aria-label="Previous month">Previous</button>
+					<select class="calendar-select" id="calendar-month-select" aria-label="Select calendar month"></select>
+					<select class="calendar-select" id="calendar-year-select" aria-label="Select calendar year"></select>
+					<button class="calendar-button" id="next-month" type="button" aria-label="Next month">Next</button>
+					<button class="calendar-button" id="today-month" type="button">Today</button>
+					<button class="button" id="calendar-export" type="button">Export accepted gigs (.ics)</button>
+				</div>
+			</div>
+			<div class="calendar-grid" id="calendar-grid" role="grid" aria-label="Gig dates"></div>
+			<div class="calendar-legend" aria-label="Calendar legend">
+				<span class="legend-item"><span class="legend-swatch"></span>Confirmed gig</span>
+				<span class="legend-item"><span class="legend-swatch preview"></span>Request preview</span>
+			</div>
+		</section>
+		<div class="toolbar">
+			<div class="filters"><input id="search" type="search" placeholder="Search gigs or contacts" aria-label="Search gigs or contacts"><select id="status-filter" aria-label="Filter by status"><option value="All">All statuses</option><option>New</option><option>Considering</option><option>Accepted</option><option>Declined</option></select></div>
+		</div>
+		<div class="view-switcher" role="group" aria-label="Request location">
+			<button class="view-tab" id="inbox-view" type="button" aria-pressed="true">Inbox</button>
+			<button class="view-tab" id="archive-view" type="button" aria-pressed="false">Archive <span id="archive-count">0</span></button>
+			<button class="view-tab" id="trash-view" type="button" aria-pressed="false">Recycling bin <span id="trash-count">0</span></button>
+		</div>
+		<p class="archive-note" id="archive-note" hidden>Accepted gigs move here automatically three days after their scheduled performance ends.</p>
+		<p class="trash-note" id="trash-note" hidden>Declined requests stay here for 7 days, then are deleted automatically.</p>
+		<section id="request-list" aria-live="polite"></section>
+	</main>
+	<footer><p>THE MUSIC COLLECTIVE · BAND MEMBER DASHBOARD</p></footer>
+	<script>
+		const list = document.getElementById("request-list");
+		const searchInput = document.getElementById("search");
+		const statusFilter = document.getElementById("status-filter");
+		const storageKey = "tuskegeeJazzRequests";
+		const trashRetentionMs = 7 * 24 * 60 * 60 * 1000;
+		const archiveDelayMs = 3 * 24 * 60 * 60 * 1000;
+		let requests = [];
+		let storageMode = "server";
+		let currentView = "inbox";
+		let viewedMonth = new Date();
+
+		function dateKey(date) {
+			const year = date.getFullYear();
+			const month = String(date.getMonth() + 1).padStart(2, "0");
+			const day = String(date.getDate()).padStart(2, "0");
+			return `${year}-${month}-${day}`;
+		}
+
+		function getDurationMinutes(item, fallback = 0) {
+			const duration = String(item["Expected event duration"] || "").match(/(\d+(?:\.\d+)?)\s*(hours?|hrs?|h|minutes?|mins?|m)\b/i);
+			if (!duration) return fallback;
+			return Math.max(1, Math.round(Number(duration[1]) * (/^(m|min|minute)/i.test(duration[2]) ? 1 : 60)));
+		}
+
+		function getArchiveTime(item) {
+			if (item.status !== "Accepted" || item.deletedAt) return null;
+			const start = new Date(`${item["Event date"]}T${item["Event time"] || "00:00"}`);
+			if (Number.isNaN(start.getTime())) return null;
+			return start.getTime() + getDurationMinutes(item) * 60 * 1000 + archiveDelayMs;
+		}
+
+		function isArchived(item, now = Date.now()) {
+			const archiveTime = getArchiveTime(item);
+			return archiveTime !== null && archiveTime <= now;
+		}
+
+		function focusRequest(id) {
+			currentView = "inbox";
+			searchInput.value = "";
+			statusFilter.value = "All";
+			render();
+			const card = document.getElementById(`request-${id}`);
+			if (card) {
+				card.scrollIntoView({ behavior: "smooth", block: "center" });
+				card.focus({ preventScroll: true });
+			}
+		}
+
+		function syncCalendarSelectors() {
+			const monthSelect = document.getElementById("calendar-month-select");
+			const yearSelect = document.getElementById("calendar-year-select");
+			if (!monthSelect.options.length) {
+				for (let month = 0; month < 12; month += 1) {
+					const option = document.createElement("option");
+					option.value = String(month);
+					option.textContent = new Date(2020, month, 1).toLocaleDateString(undefined, { month: "long" });
+					monthSelect.append(option);
+				}
+			}
+
+			const currentYear = new Date().getFullYear();
+			const years = new Set();
+			for (let year = currentYear - 10; year <= currentYear + 20; year += 1) years.add(year);
+			years.add(viewedMonth.getFullYear());
+			for (const item of requests) {
+				const eventYear = Number(String(item["Event date"] || "").slice(0, 4));
+				if (Number.isInteger(eventYear) && eventYear > 0) years.add(eventYear);
+			}
+			yearSelect.replaceChildren();
+			for (const year of [...years].sort((left, right) => left - right)) {
+				const option = document.createElement("option");
+				option.value = String(year);
+				option.textContent = String(year);
+				yearSelect.append(option);
+			}
+			monthSelect.value = String(viewedMonth.getMonth());
+			yearSelect.value = String(viewedMonth.getFullYear());
+		}
+
+		function renderCalendar() {
+			const grid = document.getElementById("calendar-grid");
+			const year = viewedMonth.getFullYear();
+			const month = viewedMonth.getMonth();
+			const firstOfMonth = new Date(year, month, 1);
+			const firstVisible = new Date(year, month, 1 - firstOfMonth.getDay());
+			const today = dateKey(new Date());
+			const eventsByDate = new Map();
+			syncCalendarSelectors();
+			for (const item of requests) {
+				if (item.deletedAt || isArchived(item) || !["New", "Considering", "Accepted"].includes(item.status)) continue;
+				const eventDate = new Date(`${item["Event date"]}T00:00:00`);
+				if (Number.isNaN(eventDate.getTime())) continue;
+				const key = dateKey(eventDate);
+				if (!eventsByDate.has(key)) eventsByDate.set(key, []);
+				eventsByDate.get(key).push(item);
+			}
+			grid.replaceChildren();
+			for (const dayName of ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]) {
+				const weekday = document.createElement("span");
+				weekday.className = "calendar-weekday";
+				weekday.setAttribute("role", "columnheader");
+				weekday.textContent = dayName;
+				grid.append(weekday);
+			}
+
+			for (let offset = 0; offset < 42; offset += 1) {
+				const day = new Date(firstVisible.getFullYear(), firstVisible.getMonth(), firstVisible.getDate() + offset);
+				const key = dateKey(day);
+				const cell = document.createElement("div");
+				cell.className = "calendar-day";
+				cell.setAttribute("role", "gridcell");
+				cell.setAttribute("aria-label", day.toLocaleDateString(undefined, { dateStyle: "full" }));
+				if (day.getMonth() !== month) cell.classList.add("is-outside");
+				if (key === today) cell.classList.add("is-today");
+				const dateLabel = document.createElement("span");
+				dateLabel.className = "calendar-date";
+				dateLabel.textContent = day.getDate();
+				cell.append(dateLabel);
+				const events = (eventsByDate.get(key) || []).sort((left, right) => (left["Event time"] || "").localeCompare(right["Event time"] || ""));
+				if (events.length) {
+					const eventList = document.createElement("div");
+					eventList.className = "calendar-events";
+					for (const item of events) {
+						const event = document.createElement("button");
+						const confirmed = item.status === "Accepted";
+						event.className = `calendar-event${confirmed ? " is-confirmed" : ""}`;
+						event.type = "button";
+						event.setAttribute("aria-label", `${item["Event time"] || "Time not set"}, ${item["Event name or occasion"]}, ${confirmed ? "confirmed" : "request preview"}. View request.`);
+						const time = document.createElement("span");
+						time.className = "event-time";
+						time.textContent = item["Event time"] || "Time TBD";
+						const title = document.createElement("span");
+						title.className = "event-title";
+						title.textContent = item["Event name or occasion"];
+						event.append(time, title);
+						event.addEventListener("click", () => focusRequest(item.id));
+						eventList.append(event);
+					}
+					cell.append(eventList);
+				}
+				grid.append(cell);
+			}
+		}
+
+		function addDetail(container, label, value, email = false) {
+			const detail = document.createElement("div");
+			detail.className = "detail";
+			const heading = document.createElement("span");
+			heading.className = "detail-label";
+			heading.textContent = label;
+			const content = document.createElement("div");
+			content.className = "detail-value";
+			if (email && value) {
+				const link = document.createElement("a");
+				link.href = `mailto:${value}`;
+				link.textContent = value;
+				content.append(link);
+			} else {
+				content.textContent = value || "Not provided";
+			}
+			detail.append(heading, content);
+			container.append(detail);
+		}
+
+		function render() {
+			renderCalendar();
+			const query = searchInput.value.trim().toLowerCase();
+			const chosenStatus = statusFilter.value;
+			const trashed = requests.filter((item) => Boolean(item.deletedAt));
+			const archived = requests.filter((item) => isArchived(item));
+			const active = requests.filter((item) => !item.deletedAt && !isArchived(item));
+			document.getElementById("total-count").textContent = active.length;
+			document.getElementById("trash-count").textContent = trashed.length;
+			document.getElementById("archive-count").textContent = archived.length;
+			document.getElementById("new-count").textContent = active.filter((item) => item.status === "New").length;
+			document.getElementById("accepted-count").textContent = active.filter((item) => item.status === "Accepted").length;
+			document.getElementById("inbox-view").setAttribute("aria-pressed", String(currentView === "inbox"));
+			document.getElementById("trash-view").setAttribute("aria-pressed", String(currentView === "trash"));
+			document.getElementById("archive-view").setAttribute("aria-pressed", String(currentView === "archive"));
+			document.getElementById("trash-note").hidden = currentView !== "trash";
+			document.getElementById("archive-note").hidden = currentView !== "archive";
+			const visible = requests.filter((item) => {
+				const searchable = [item["Contact person"], item.Organization, item["Event name or occasion"], item["Event location"], item.Email].join(" ").toLowerCase();
+				const inView = currentView === "trash"
+					? Boolean(item.deletedAt)
+					: currentView === "archive"
+						? !item.deletedAt && isArchived(item)
+						: !item.deletedAt && !isArchived(item);
+				return inView
+					&& (chosenStatus === "All" || item.status === chosenStatus)
+					&& searchable.includes(query);
+			});
+			list.replaceChildren();
+			const storageNote = storageMode === "browser"
+				? " · saved in this browser; download responses.json to keep a file copy"
+				: " · stored in data/responses.json";
+			document.getElementById("result-count").textContent = `${visible.length} of ${requests.length} ${requests.length === 1 ? "request" : "requests"}${storageNote}`;
+			if (!visible.length) {
+				const empty = document.createElement("p");
+				empty.className = "empty";
+				empty.textContent = currentView === "trash"
+					? "The recycling bin is empty."
+					: currentView === "archive"
+						? archived.length ? "No archived gigs match these filters." : "No completed gigs have been archived yet."
+						: active.length ? "No requests match these filters." : "No gig requests yet.";
+				list.append(empty);
+				return;
+			}
+
+			for (const item of visible) {
+				const card = document.createElement("article");
+				card.className = "request";
+				card.id = `request-${item.id}`;
+				card.tabIndex = -1;
+				card.dataset.status = item.status;
+				const top = document.createElement("div");
+				top.className = "request-top";
+				const heading = document.createElement("div");
+				const title = document.createElement("h2");
+				title.textContent = item["Event name or occasion"];
+				const meta = document.createElement("div");
+				meta.className = "request-meta";
+				meta.textContent = `${item.Organization} · ${item["Contact person"]} · Event ${item["Event date"]} at ${item["Event time"]}`;
+				heading.append(title, meta);
+				const statusWrap = document.createElement("div");
+				statusWrap.className = "status-control";
+				const statusLabel = document.createElement("label");
+				statusLabel.textContent = "Request status";
+				statusLabel.htmlFor = `status-${item.id}`;
+				if (item.deletedAt) {
+					const actions = document.createElement("div");
+					actions.className = "request-actions";
+					const daysLeft = Math.max(0, Math.ceil((Date.parse(item.deletedAt) + trashRetentionMs - Date.now()) / (24 * 60 * 60 * 1000)));
+					const expiry = document.createElement("span");
+					expiry.className = "trash-expiry";
+					expiry.textContent = `Declined · deletes in ${daysLeft} ${daysLeft === 1 ? "day" : "days"}`;
+					const restoreButton = document.createElement("button");
+					restoreButton.className = "secondary-button";
+					restoreButton.type = "button";
+					restoreButton.textContent = "Restore";
+					restoreButton.addEventListener("click", () => restoreRequest(item));
+					const deleteButton = document.createElement("button");
+					deleteButton.className = "danger-button";
+					deleteButton.type = "button";
+					deleteButton.textContent = "Delete permanently";
+					deleteButton.addEventListener("click", () => permanentlyDelete(item));
+					actions.append(restoreButton, deleteButton);
+					statusWrap.append(expiry, actions);
+				} else {
+					const select = document.createElement("select");
+					select.id = `status-${item.id}`;
+					statusLabel.htmlFor = select.id;
+					for (const status of ["New", "Considering", "Accepted", "Declined"]) {
+						const option = document.createElement("option");
+						option.value = status;
+						option.textContent = status;
+						option.selected = item.status === status;
+						select.append(option);
+					}
+					select.addEventListener("change", () => updateStatus(item, select));
+					statusWrap.append(statusLabel, select);
+				}
+				top.append(heading, statusWrap);
+
+				const details = document.createElement("div");
+				details.className = "details";
+				addDetail(details, "Email", item.Email, true);
+				addDetail(details, "Phone", item.Phone);
+				addDetail(details, "Location", item["Event location"]);
+				addDetail(details, "Event duration", item["Expected event duration"]);
+				addDetail(details, "Performance length", item["Requested performance length"]);
+				addDetail(details, "Compensation", item.Compensation);
+				addDetail(details, "Song request", item["Song request"]);
+				addDetail(details, "Food or refreshments", item["Food or refreshments provided"]);
+				addDetail(details, "Additional notes", item["Additional notes or special requests"]);
+				addDetail(details, "Received", new Date(item.submittedAt).toLocaleString());
+				card.append(top, details);
+				list.append(card);
+			}
+		}
+
+		async function updateStatus(item, select) {
+			select.disabled = true;
+			try {
+				if (storageMode === "browser") {
+					item.status = select.value;
+					if (item.status === "Declined") item.deletedAt ||= new Date().toISOString();
+					else delete item.deletedAt;
+					localStorage.setItem(storageKey, JSON.stringify(requests));
+					render();
+					return;
+				}
+				const result = await fetch(`/api/requests/${encodeURIComponent(item.id)}`, {
+					method: "PATCH",
+					headers: { "Content-Type": "application/json" },
+					body: JSON.stringify({ status: select.value }),
+				});
+				if (!result.ok) throw new Error("Could not update this request.");
+				const updated = await result.json();
+				Object.assign(item, updated);
+				render();
+			} catch (error) {
+				window.alert(error.message);
+				select.value = item.status;
+				select.disabled = false;
+			}
+		}
+
+		async function restoreRequest(item) {
+			try {
+				if (storageMode === "browser") {
+					item.status = "New";
+					delete item.deletedAt;
+					localStorage.setItem(storageKey, JSON.stringify(requests));
+				} else {
+					const response = await fetch(`/api/requests/${encodeURIComponent(item.id)}`, {
+						method: "PATCH",
+						headers: { "Content-Type": "application/json" },
+						body: JSON.stringify({ status: "New" }),
+					});
+					if (!response.ok) throw new Error("Could not restore this request.");
+					Object.assign(item, await response.json());
+				}
+				render();
+			} catch (error) {
+				window.alert(error.message);
+			}
+		}
+
+		async function permanentlyDelete(item) {
+			if (!window.confirm("Permanently delete this declined request? This cannot be undone.")) return;
+			try {
+				if (storageMode === "browser") {
+					requests = requests.filter((entry) => entry.id !== item.id);
+					localStorage.setItem(storageKey, JSON.stringify(requests));
+				} else {
+					const response = await fetch(`/api/requests/${encodeURIComponent(item.id)}`, { method: "DELETE" });
+					if (!response.ok) throw new Error("Could not delete this request.");
+					requests = requests.filter((entry) => entry.id !== item.id);
+				}
+				render();
+			} catch (error) {
+				window.alert(error.message);
+			}
+		}
+
+		async function loadRequests() {
+			try {
+				const response = await fetch("/api/requests");
+				if (!response.ok) throw new Error("Could not load gig requests.");
+				requests = await response.json();
+				render();
+			} catch (error) {
+				try {
+					requests = JSON.parse(localStorage.getItem(storageKey) || "[]");
+					storageMode = "browser";
+					const cutoff = Date.now() - trashRetentionMs;
+					for (const item of requests) {
+						if (item.status === "Declined" && !item.deletedAt) item.deletedAt = new Date().toISOString();
+					}
+					requests = requests.filter((item) => !item.deletedAt || Date.parse(item.deletedAt) > cutoff);
+					localStorage.setItem(storageKey, JSON.stringify(requests));
+					render();
+				} catch {
+					list.className = "error";
+					list.textContent = `${error.message} Start the site with node server.js or open it through a local web server.`;
+				}
+			}
+		}
+
+		function escapeICalText(value) {
+			return String(value || "")
+				.replace(/\\/g, "\\\\")
+				.replace(/\r?\n/g, "\\n")
+				.replace(/,/g, "\\,")
+				.replace(/;/g, "\\;");
+		}
+
+		function formatICalLocalDateTime(date) {
+			const pad = (value) => String(value).padStart(2, "0");
+			return `${date.getFullYear()}${pad(date.getMonth() + 1)}${pad(date.getDate())}T${pad(date.getHours())}${pad(date.getMinutes())}00`;
+		}
+
+		function exportAcceptedCalendar() {
+			const accepted = requests.filter((item) => item.status === "Accepted" && !item.deletedAt && !isArchived(item));
+			if (!accepted.length) {
+				window.alert("Accept a gig request before exporting confirmed calendar events.");
+				return;
+			}
+			const stamp = new Date().toISOString().replace(/[-:]/g, "").replace(/\.\d{3}/, "");
+			const events = accepted.map((item) => {
+				const start = new Date(`${item["Event date"]}T${item["Event time"] || "00:00"}:00`);
+				const durationMinutes = getDurationMinutes(item, 60);
+				const end = new Date(start.getTime() + durationMinutes * 60 * 1000);
+				const description = [
+					`Contact: ${item["Contact person"] || ""}`,
+					`Email: ${item.Email || ""}`,
+					`Phone: ${item.Phone || ""}`,
+					`Performance length: ${item["Requested performance length"] || ""}`,
+					`Song request: ${item["Song request"] || "None"}`,
+				].join("\n");
+				return [
+					"BEGIN:VEVENT",
+					`UID:${escapeICalText(item.id)}@tuskegeejazzcollective`,
+					`DTSTAMP:${stamp}`,
+					`DTSTART;TZID=America/Chicago:${formatICalLocalDateTime(start)}`,
+					`DTEND;TZID=America/Chicago:${formatICalLocalDateTime(end)}`,
+					`SUMMARY:${escapeICalText(item["Event name or occasion"])}`,
+					`LOCATION:${escapeICalText(item["Event location"])}`,
+					`DESCRIPTION:${escapeICalText(description)}`,
+					`STATUS:CONFIRMED`,
+					"END:VEVENT",
+				].join("\r\n");
+			});
+			const calendar = [
+				"BEGIN:VCALENDAR",
+				"VERSION:2.0",
+				"PRODID:-//The music Collective//Gig Calendar//EN",
+				"CALSCALE:GREGORIAN",
+				"METHOD:PUBLISH",
+				"X-WR-CALNAME:The music Collective",
+				...events,
+				"END:VCALENDAR",
+			].join("\r\n");
+			const file = new Blob([`${calendar}\r\n`], { type: "text/calendar;charset=utf-8" });
+			const link = document.createElement("a");
+			link.href = URL.createObjectURL(file);
+			link.download = "the-music-collective.ics";
+			link.click();
+			URL.revokeObjectURL(link.href);
+		}
+
+		searchInput.addEventListener("input", render);
+		statusFilter.addEventListener("change", render);
+		document.getElementById("inbox-view").addEventListener("click", () => { currentView = "inbox"; render(); });
+		document.getElementById("trash-view").addEventListener("click", () => { currentView = "trash"; render(); });
+		document.getElementById("archive-view").addEventListener("click", () => { currentView = "archive"; render(); });
+		document.getElementById("previous-month").addEventListener("click", () => { viewedMonth = new Date(viewedMonth.getFullYear(), viewedMonth.getMonth() - 1, 1); renderCalendar(); });
+		document.getElementById("next-month").addEventListener("click", () => { viewedMonth = new Date(viewedMonth.getFullYear(), viewedMonth.getMonth() + 1, 1); renderCalendar(); });
+		document.getElementById("today-month").addEventListener("click", () => { viewedMonth = new Date(); renderCalendar(); });
+		document.getElementById("calendar-month-select").addEventListener("change", (event) => { viewedMonth = new Date(viewedMonth.getFullYear(), Number(event.target.value), 1); renderCalendar(); });
+		document.getElementById("calendar-year-select").addEventListener("change", (event) => { viewedMonth = new Date(Number(event.target.value), viewedMonth.getMonth(), 1); renderCalendar(); });
+		document.getElementById("calendar-export").addEventListener("click", exportAcceptedCalendar);
+		document.getElementById("export-button").addEventListener("click", () => {
+			const file = new Blob([`${JSON.stringify(requests, null, 2)}\n`], { type: "application/json" });
+			const link = document.createElement("a");
+			link.href = URL.createObjectURL(file);
+			link.download = "responses.json";
+			link.click();
+			URL.revokeObjectURL(link.href);
+		});
+		renderCalendar();
+		loadRequests();
+		window.setInterval(() => {
+			if (storageMode === "browser") {
+				const cutoff = Date.now() - trashRetentionMs;
+				const retained = requests.filter((item) => !item.deletedAt || Date.parse(item.deletedAt) > cutoff);
+				if (retained.length !== requests.length) {
+					requests = retained;
+					localStorage.setItem(storageKey, JSON.stringify(requests));
+				}
+			}
+			render();
+		}, 60 * 1000);
+	</script>
+</body>
+</html>

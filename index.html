@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#17131b">
+    <meta name="description" content="Live music for campus and private events from The music Collective, an independent group of current Tuskegee University students based in Tuskegee, Alabama.">
+    <title>The music Collective | Live R&amp;B from Tuskegee</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            color-scheme: dark;
+            --ink: #f5eee4;
+            --paper: #17131b;
+            --crimson: #e3697d;
+            --gold: #f3bc58;
+            --muted: #c2b7c2;
+            --line: #493743;
+        }
+
+        * { box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; scroll-padding-top: 100px; }
+
+        body {
+            margin: 0;
+            background-color: var(--paper);
+            background-image: radial-gradient(rgba(243, 188, 88, .08) .7px, transparent .7px);
+            background-size: 18px 18px;
+            color: var(--ink);
+            font-family: "DM Sans", sans-serif;
+        }
+
+        a { color: inherit; }
+
+        .site-header {
+            align-items: center;
+            background: rgba(23, 19, 27, .96);
+            display: flex;
+            justify-content: space-between;
+            margin: 0 auto;
+            max-width: 1240px;
+            min-height: 78px;
+            padding: 14px 32px;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .brand {
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 1.4px;
+            line-height: 1.35;
+            text-decoration: none;
+        }
+
+        .brand span { color: var(--crimson); }
+
+        nav { display: flex; gap: 28px; }
+
+        nav a {
+            font-size: 13px;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        nav a:hover, nav a:focus-visible { color: var(--crimson); }
+
+        .hero {
+            align-items: center;
+            background-color: #17131b;
+            color: white;
+            display: flex;
+            isolation: isolate;
+            min-height: 72vh;
+            overflow: hidden;
+            padding: 72px max(32px, calc((100vw - 1176px) / 2));
+            position: relative;
+        }
+
+        .hero::before {
+            background-image: linear-gradient(90deg, rgba(18, 13, 21, .96) 0%, rgba(18, 13, 21, .78) 60%, rgba(18, 13, 21, .42) 100%), url("albums.jpg");
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
+            content: "";
+            height: 100vw;
+            left: 50%;
+            position: absolute;
+            top: 50%;
+            transform: translate(-50%, -50%) rotate(90deg) scale(.82, 1);
+            width: 100vh;
+            z-index: -1;
+        }
+
+        .hero-content { max-width: 860px; }
+
+        .eyebrow {
+            color: var(--gold);
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        h1, h2, h3 { font-family: "Playfair Display", Georgia, serif; }
+
+        h1 {
+            font-size: clamp(56px, 7.5vw, 92px);
+            line-height: 1.02;
+            margin: 18px 0;
+            max-width: 860px;
+        }
+
+        .hero p {
+            color: #f0eee8;
+            font-size: 17px;
+            line-height: 1.7;
+            margin: 0 0 30px;
+            max-width: 540px;
+        }
+
+        .button {
+            background: var(--gold);
+            color: #17131b;
+            display: inline-block;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: .7px;
+            padding: 15px 20px;
+            text-decoration: none;
+            text-transform: uppercase;
+        }
+
+        .button:hover, .button:focus-visible { background: #fff4d2; }
+
+        .intro {
+            align-items: center;
+            border-bottom: 1px solid var(--line);
+            display: flex;
+            gap: 30px;
+            justify-content: space-between;
+            margin: 0 auto;
+            max-width: 1176px;
+            padding: 26px 0;
+        }
+
+        .intro strong {
+            color: var(--crimson);
+            font-size: 12px;
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
+        }
+
+        .intro span { color: var(--muted); font-size: 13px; }
+
+        main { margin: 0 auto; max-width: 1176px; padding: 0 32px; }
+
+        .section { padding: 78px 0; }
+
+        .about {
+            display: grid;
+            gap: 64px;
+            grid-template-columns: 1fr 1.2fr;
+        }
+
+        .section-label {
+            color: var(--crimson);
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1.8px;
+            text-transform: uppercase;
+        }
+
+        h2 { font-size: 42px; line-height: 1.12; margin: 12px 0 18px; }
+
+        .about p, .sound p {
+            color: var(--muted);
+            font-size: 15px;
+            line-height: 1.85;
+            margin: 0;
+        }
+
+        .sound {
+            align-items: center;
+            background: #211824;
+            color: white;
+            display: grid;
+            gap: 48px;
+            grid-template-columns: 1fr 1fr;
+            margin: 0 -32px;
+            padding: 56px 32px;
+        }
+
+        .sound h2 { margin-bottom: 12px; }
+        .sound p { color: #e4d9df; }
+        .sound .section-label { color: var(--gold); }
+
+        .rnb {
+            align-items: center;
+            border-top: 1px solid var(--line);
+            display: grid;
+            gap: 40px;
+            grid-template-columns: 1.1fr .9fr;
+        }
+
+        .rnb-copy { color: var(--muted); font-size: 15px; line-height: 1.85; margin: 0; }
+
+        .genres {
+            border-top: 1px solid #594453;
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            margin: 0;
+        }
+
+        .genres span {
+            border-bottom: 1px solid #594453;
+            color: var(--gold);
+            font-family: "Playfair Display", Georgia, serif;
+            font-size: 22px;
+            padding: 16px 8px 16px 0;
+        }
+
+        .contact {
+            align-items: start;
+            display: grid;
+            gap: 40px;
+            grid-template-columns: 1fr 1fr;
+        }
+
+        .contact-details { line-height: 2; }
+        .contact-details a { color: var(--gold); text-decoration-color: var(--crimson); text-underline-offset: 4px; }
+        .contact-copy { color: var(--muted); font-size: 15px; line-height: 1.85; }
+        .travel { border-top: 1px solid var(--line); }
+        .travel-intro { color: var(--muted); font-size: 15px; line-height: 1.85; margin: 0 0 28px; max-width: 760px; }
+        .travel-grid { display: grid; gap: 20px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        .travel-card { background: #211824; border: 1px solid var(--line); margin: 0; overflow: hidden; }
+        .travel-card img { background: #17131b; display: block; height: 320px; object-fit: contain; width: 100%; }
+        .travel-card figcaption { color: var(--gold); font-family: "Playfair Display", Georgia, serif; font-size: 22px; padding: 14px 18px; }
+        .independent-note { color: var(--muted); font-size: 14px; line-height: 1.8; margin: 20px 0 0; }
+
+        footer {
+            align-items: center;
+            background: #211824;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            padding: 22px max(32px, calc((100vw - 1176px) / 2));
+        }
+
+        footer p { font-size: 12px; margin: 0; }
+        footer a { color: var(--gold); font-size: 12px; font-weight: 700; }
+
+        @media (max-width: 900px) {
+            .genres { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        }
+
+        @media (max-width: 700px) {
+            .site-header { align-items: flex-start; flex-direction: column; gap: 14px; padding: 18px 22px; }
+            nav { flex-wrap: wrap; gap: 10px 12px; }
+            nav a { font-size: 12px; }
+            .hero { min-height: 60vh; padding: 56px 22px; }
+            h1 { font-size: 48px; }
+            .hero p { font-size: 15px; }
+            .intro { align-items: flex-start; flex-direction: column; gap: 8px; margin: 0 22px; }
+            main { padding: 0 22px; }
+            .section { padding: 56px 0; }
+            .about, .sound, .rnb, .contact, .travel-grid { gap: 26px; grid-template-columns: 1fr; }
+            .sound { margin: 0 -22px; padding: 42px 22px; }
+            h2 { font-size: 36px; }
+            .genres { grid-template-columns: 1fr; }
+            .genres span { font-size: 19px; }
+            .travel-card img { height: 260px; }
+            footer { align-items: flex-start; flex-direction: column; gap: 10px; padding: 20px 22px; }
+        }
+    </style>
+</head>
+
+<body>
+    <header class="site-header">
+        <a class="brand" href="index.html">THE<br><span>MUSIC COLLECTIVE</span></a>
+        <nav aria-label="Main navigation">
+            <a href="#about">About</a>
+            <a href="#sound">Our sound</a>
+            <a href="#rnb">R&amp;B bookings</a>
+            <a href="#travel">Travel</a>
+            <a href="jazz.html">Live clips</a>
+            <a href="#contact">Contact</a>
+        </nav>
+    </header>
+
+    <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-content">
+            <span class="eyebrow">Tuskegee, Alabama · Soul in every note</span>
+            <h1 id="hero-title">Feel the groove.<br>Find your people.</h1>
+            <p>R&amp;B with feeling, live musicianship, and a whole lot of soul. Meet The music Collective.</p>
+            <a class="button" href="jazzcontact.html">Book the Collective</a>
+        </div>
+    </section>
+
+    <div class="intro">
+        <strong>The music Collective</strong>
+        <span>Live R&amp;B, soulful grooves, and feel-good energy from Tuskegee.</span>
+    </div>
+
+    <main>
+        <section class="section about" id="about">
+            <div>
+                <span class="section-label">A Tuskegee sound</span>
+                <h2>A collective sound.<br>A whole lot of soul.</h2>
+            </div>
+            <p>The music Collective brings together Tuskegee musicians with one thing in common: a love for music that brings people together. With R&amp;B at the heart of what we do, we blend smooth vocals, rich harmonies, and live-band energy into a sound made for singing along, moving, and making memories.</p>
+        </section>
+
+        <section class="sound" id="sound">
+            <div>
+                <span class="section-label">Our sound</span>
+                <h2>Soulful roots.<br>R&amp;B in the lead.</h2>
+                <p>Feel-good grooves, expressive vocals, and the warmth of a live band. Our sound is grounded in R&amp;B, with neo-soul textures and the musicianship of our jazz roots.</p>
+            </div>
+            <div class="genres" aria-label="Sounds that inspire us">
+                <span>R&amp;B</span>
+                <span>Neo-soul</span>
+                <span>Smooth grooves</span>
+                <span>Jazz roots</span>
+            </div>
+        </section>
+
+        <section class="section rnb" id="rnb">
+            <div>
+                <span class="section-label">Set the mood</span>
+                <h2>Make your night sound unforgettable.</h2>
+            </div>
+            <div>
+                <p class="rnb-copy">Live music for campus &amp; private events, dinners, receptions, and select off-campus events. Tell us what you're celebrating, and we'll help make it a night to remember.</p>
+            </div>
+        </section>
+
+        <section class="section travel" id="travel">
+            <span class="section-label">Tuskegee to statewide</span>
+            <h2>Rooted here. Ready to travel.</h2>
+            <p class="travel-intro">We’re current Tuskegee University students, based in Tuskegee, Alabama. Our regional performances have taken us to Montgomery and Birmingham, and we’re glad to bring our sound to events across the state.</p>
+            <div class="travel-grid" aria-label="Alabama cities where we perform">
+                <figure class="travel-card">
+                    <img src="montgomery.jpg" alt="Montgomery, Alabama, at sunset">
+                    <figcaption>Montgomery, Alabama</figcaption>
+                </figure>
+                <figure class="travel-card">
+                    <img src="birmingham.jpg" alt="The Alabama Theatre sign in Birmingham at night">
+                    <figcaption>Birmingham, Alabama</figcaption>
+                </figure>
+            </div>
+            <p class="independent-note">We’re an independent student group, not an official Tuskegee University organization. Campus community members and outside clients are all welcome to book us. If we need to travel further, we can be contacted, and there is a section for it on the request page.</p>
+        </section>
+
+        <section class="section contact" id="contact">
+            <div>
+                <span class="section-label">Now booking</span>
+                <h2>Bring the feeling to your event.</h2>
+                <p class="contact-copy">For R&amp;B bookings, collaborations, or questions, get in touch.</p>
+                <a class="button" href="jazzcontact.html">Request a booking</a>
+            </div>
+            <div class="contact-details">
+                <a href="mailto:tuskegeejazzcollective@gmail.com">tuskegeejazzcollective@gmail.com</a><br>
+                Instagram: <a href="https://www.instagram.com/themc.live" target="_blank" rel="noopener noreferrer">@themc.live</a><br>
+                TikTok: <a href="https://www.tiktok.com/@tmcmusic" target="_blank" rel="noopener noreferrer">@tmcmusic</a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>THE MUSIC COLLECTIVE · T U U KNOW!</p>
+        <a href="jazz.html">Watch us live →</a>
+    </footer>
+</body>
+</html>

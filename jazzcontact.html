@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="theme-color" content="#17131b">
+	<meta name="description" content="Request a live R&amp;B performance from The music Collective in Tuskegee, Alabama.">
+	<title>Booking Request | The music Collective</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+	<style>
+		:root {
+			color-scheme: dark;
+			--ink: #f5eee4;
+			--paper: #17131b;
+			--crimson: #e3697d;
+			--gold: #f3bc58;
+			--muted: #c2b7c2;
+			--line: #493743;
+		}
+
+		* { box-sizing: border-box; }
+		body {
+			background-color: var(--paper);
+			background-image: radial-gradient(rgba(243, 188, 88, .08) .7px, transparent .7px);
+			background-size: 16px 16px;
+			color: var(--ink);
+			font-family: "DM Sans", sans-serif;
+			margin: 0;
+		}
+
+		a { color: inherit; }
+
+		.site-header {
+			align-items: center;
+			background: rgba(23, 19, 27, .96);
+			display: flex;
+			justify-content: space-between;
+			margin: 0 auto;
+			max-width: 1240px;
+			min-height: 78px;
+			padding: 14px 32px;
+			position: sticky;
+			top: 0;
+			z-index: 10;
+		}
+
+		.brand {
+			font-size: 13px;
+			font-weight: 700;
+			letter-spacing: 1.4px;
+			line-height: 1.35;
+			text-decoration: none;
+		}
+
+		.brand span { color: var(--crimson); }
+		nav a { font-size: 13px; font-weight: 600; text-decoration: none; }
+		nav a:hover, nav a:focus-visible { color: var(--crimson); }
+
+		main { margin: 0 auto; max-width: 920px; padding: 50px 32px 88px; }
+
+		.intro {
+			background-image: linear-gradient(90deg, rgba(23, 19, 27, .96), rgba(23, 19, 27, .76)), url("letterman.jpg");
+			background-position: center 38%;
+			background-size: cover;
+			border: 1px solid var(--line);
+			padding: 30px;
+		}
+		.eyebrow, .section-label {
+			color: var(--crimson);
+			font-size: 11px;
+			font-weight: 700;
+			letter-spacing: 1.8px;
+			text-transform: uppercase;
+		}
+
+		h1, h2 { font-family: "Playfair Display", Georgia, serif; }
+		h1 { font-size: 52px; line-height: 1.08; margin: 14px 0; }
+		.intro p { color: var(--muted); font-size: 15px; line-height: 1.8; margin: 8px 0; max-width: 760px; }
+		.notice { border-left: 3px solid var(--gold); margin-top: 24px !important; padding-left: 16px; }
+
+		form { padding-top: 12px; }
+		fieldset { border: 0; border-bottom: 1px solid var(--line); margin: 0; padding: 30px 0 34px; }
+		legend { font-family: "Playfair Display", Georgia, serif; font-size: 25px; font-weight: 700; padding: 0 0 18px; }
+		.fields { display: grid; gap: 20px 22px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+		.field { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+		.field.full { grid-column: 1 / -1; }
+		label, .group-label { font-size: 13px; font-weight: 700; }
+		.optional { color: var(--muted); font-size: 12px; font-weight: 400; }
+		input, textarea, select {
+			background: #211824;
+			border: 1px solid #594453;
+			border-radius: 2px;
+			color: var(--ink);
+			font: inherit;
+			min-height: 46px;
+			padding: 11px 12px;
+			width: 100%;
+		}
+		textarea { min-height: 118px; resize: vertical; }
+		input:focus, textarea:focus, select:focus { border-color: var(--gold); outline: 2px solid rgba(243, 188, 88, .18); }
+		.choice-row { display: flex; flex-wrap: wrap; gap: 12px 24px; margin-top: 4px; }
+		.choice { align-items: center; display: inline-flex; gap: 9px; font-size: 14px; font-weight: 500; }
+		.choice input { accent-color: var(--crimson); min-height: 0; width: 17px; }
+		.form-note { color: var(--muted); font-size: 13px; line-height: 1.7; margin: 18px 0 0; }
+		.deposit-note { border-top: 1px solid var(--line); margin-top: 28px; padding-top: 22px; }
+		.deposit-note h2 { font-size: 22px; margin: 0 0 10px; }
+		.deposit-note p { color: var(--muted); font-size: 14px; line-height: 1.7; margin: 8px 0; }
+
+		.actions { align-items: center; display: flex; flex-wrap: wrap; gap: 20px; padding-top: 28px; }
+		.button {
+			background: var(--crimson);
+			border: 0;
+			color: white;
+			cursor: pointer;
+			display: inline-block;
+			font: inherit;
+			font-size: 12px;
+			font-weight: 700;
+			letter-spacing: .7px;
+			padding: 15px 20px;
+			text-decoration: none;
+			text-transform: uppercase;
+		}
+		.button:hover, .button:focus-visible { background: var(--ink); }
+		.back-link { color: var(--crimson); font-size: 13px; font-weight: 700; text-underline-offset: 4px; }
+		.form-status { background: #1d3528; border-left: 3px solid #63b482; color: #d7f1df; margin-top: 24px; padding: 14px 16px; }
+		.travel-note { background: #211824; border-left: 3px solid var(--gold); margin: 26px 0 0; padding: 18px 20px; }
+		.travel-note h2 { font-family: "Playfair Display", Georgia, serif; font-size: 22px; margin: 0 0 8px; }
+		.travel-note p { color: var(--muted); font-size: 14px; line-height: 1.7; margin: 0; }
+
+		footer {
+			align-items: center;
+			background: #211824;
+			color: white;
+			display: flex;
+			justify-content: space-between;
+			padding: 22px max(32px, calc((100vw - 1176px) / 2));
+		}
+		footer p { font-size: 12px; margin: 0; }
+		footer a { color: var(--gold); font-size: 12px; font-weight: 700; }
+
+		@media (max-width: 700px) {
+			.site-header { gap: 16px; padding: 18px 22px; }
+			main { padding: 38px 22px 62px; }
+			h1 { font-size: 40px; }
+			.fields { grid-template-columns: 1fr; }
+			.field.full { grid-column: auto; }
+			fieldset { padding: 26px 0 30px; }
+			footer { align-items: flex-start; flex-direction: column; gap: 10px; padding: 20px 22px; }
+		}
+	</style>
+</head>
+<body>
+	<header class="site-header">
+		<a class="brand" href="index.html">THE<br><span>MUSIC COLLECTIVE</span></a>
+		<nav aria-label="Main navigation"><a href="index.html#contact">Contact</a></nav>
+	</header>
+
+	<main>
+		<section class="intro" aria-labelledby="page-title">
+			<span class="eyebrow">The music Collective · Tuskegee, Alabama</span>
+			<h1 id="page-title">Let's make it a night.</h1>
+			<p>Thanks for thinking of The music Collective for your event. We’re current Tuskegee University students, based in Tuskegee, Alabama, and an independent group—not an official university organization. Share a few details below, and we'll be in touch about live music for campus &amp; private events, dinners, receptions, and select off-campus events.</p>
+			<p class="notice"><strong>Please allow at least two weeks' notice</strong> for booking requests. If you have a special song in mind, let us know so we can plan ahead.</p>
+			<section class="travel-note" aria-labelledby="travel-title">
+				<h2 id="travel-title">Travel beyond our region?</h2>
+				<p>We perform across Alabama, including Montgomery and Birmingham. If we need to travel further, contact us with the details in the field below and we’ll discuss availability and arrangements.</p>
+			</section>
+		</section>
+
+		<p class="form-status" id="form-status" role="status" hidden>Your request was saved. The music Collective will follow up after reviewing the details.</p>
+		<form id="request-form" action="/requests" method="post">
+			<fieldset>
+				<legend>Contact information</legend>
+				<div class="fields">
+					<div class="field">
+						<label for="contact-name">Contact person</label>
+						<input id="contact-name" name="Contact person" autocomplete="name" required>
+					</div>
+					<div class="field">
+						<label for="organization">Organization</label>
+						<input id="organization" name="Organization" autocomplete="organization" required>
+					</div>
+					<div class="field">
+						<label for="email">Email address</label>
+						<input id="email" name="Email" type="email" autocomplete="email" required>
+					</div>
+					<div class="field">
+						<label for="phone">Phone number <span class="optional">(optional)</span></label>
+						<input id="phone" name="Phone" type="tel" autocomplete="tel">
+					</div>
+				</div>
+			</fieldset>
+
+			<fieldset>
+				<legend>Event details</legend>
+				<div class="fields">
+					<div class="field full">
+						<label for="event-name">Event name or occasion</label>
+						<input id="event-name" name="Event name or occasion" required>
+					</div>
+					<div class="field">
+						<label for="event-date">Event date</label>
+						<input id="event-date" name="Event date" type="date" required>
+					</div>
+					<div class="field">
+						<label for="event-time">Event time</label>
+						<input id="event-time" name="Event time" type="time" required>
+					</div>
+					<div class="field full">
+						<label for="location">Event location</label>
+						<input id="location" name="Event location" autocomplete="street-address" required>
+					</div>
+					<div class="field">
+						<label for="event-duration">Expected event duration</label>
+						<input id="event-duration" name="Expected event duration" placeholder="e.g., 3 hours" required>
+					</div>
+					<div class="field">
+						<label for="performance-length">Requested performance length</label>
+						<input id="performance-length" name="Requested performance length" placeholder="e.g., 45 minutes" required>
+					</div>
+					<div class="field full">
+						<label for="song-request">Song request <span class="optional">(one song per event)</span></label>
+						<input id="song-request" name="Song request">
+					</div>
+					<div class="field full">
+						<label for="travel-details">Travel beyond our regional area <span class="optional">(optional)</span></label>
+						<input id="travel-details" name="Travel details" placeholder="Share the destination and any travel details">
+					</div>
+				</div>
+			</fieldset>
+
+			<fieldset>
+				<legend>Logistics</legend>
+				<div class="fields">
+					<div class="field full">
+						<label for="compensation">How will the band be compensated?</label>
+						<input id="compensation" name="Compensation" placeholder="Please include details" required>
+					</div>
+					<div class="field full">
+						<span class="group-label" id="refreshments-label">Will food or refreshments be provided?</span>
+						<div class="choice-row" role="group" aria-labelledby="refreshments-label">
+							<label class="choice"><input type="radio" name="Food or refreshments provided" value="Yes" required> Yes</label>
+							<label class="choice"><input type="radio" name="Food or refreshments provided" value="No"> No</label>
+						</div>
+					</div>
+					<div class="field full">
+						<label for="notes">Additional notes or special requests <span class="optional">(optional)</span></label>
+						<textarea id="notes" name="Additional notes or special requests"></textarea>
+					</div>
+				</div>
+				<p class="form-note">Submitting saves your request to the Gig requests dashboard. Please allow at least two weeks' notice.</p>
+			</fieldset>
+
+			<section class="deposit-note" aria-labelledby="deposit-title">
+				<h2 id="deposit-title">Booking confirmation &amp; deposit</h2>
+				<p>If The music Collective accepts your request, a deposit of 20% of the agreed performance fee is required to confirm the booking. The remaining balance and payment schedule will be confirmed with you before the event.</p>
+				<p>The deposit will be sent directly to the band through Cash App, Venmo, or another payment method arranged with the band leader.</p>
+			</section>
+
+			<div class="actions">
+				<button class="button" type="submit">Send gig request</button>
+				<a class="back-link" href="index.html#contact">Back to contacts</a>
+			</div>
+		</form>
+	</main>
+
+	<footer>
+		<p>THE MUSIC COLLECTIVE · <a href="mailto:tuskegeejazzcollective@gmail.com">tuskegeejazzcollective@gmail.com</a> · <a href="https://www.instagram.com/themc.live" target="_blank" rel="noopener noreferrer">@themc.live</a> · <a href="https://www.tiktok.com/@tmcmusic" target="_blank" rel="noopener noreferrer">@tmcmusic</a></p>
+		<a href="index.html">Return to home</a>
+	</footer>
+	<script>
+		const storageKey = "tuskegeeJazzRequests";
+		const form = document.getElementById("request-form");
+		const formStatus = document.getElementById("form-status");
+		const submittedMode = new URLSearchParams(window.location.search).get("submitted");
+		if (submittedMode) {
+			formStatus.textContent = submittedMode === "local"
+				? "Request saved in this browser. Open Gig requests on this browser to review it, then download responses.json to keep a file copy."
+				: "Your request was saved. The music Collective will follow up after reviewing the details.";
+			formStatus.hidden = false;
+		}
+
+		form.addEventListener("submit", async (event) => {
+			event.preventDefault();
+			const button = form.querySelector("button[type='submit']");
+			button.disabled = true;
+			button.textContent = "Sending...";
+			const fields = Object.fromEntries(new FormData(form).entries());
+			try {
+				const response = await fetch(form.action, {
+					method: "POST",
+					headers: { "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8" },
+					body: new URLSearchParams(fields),
+				});
+				if (!response.ok) throw new Error("Request server is unavailable.");
+				window.location.assign("jazzcontact.html?submitted=1");
+			} catch {
+				try {
+					const requests = JSON.parse(localStorage.getItem(storageKey) || "[]");
+					requests.unshift({
+						id: crypto.randomUUID ? crypto.randomUUID() : `${Date.now()}-${Math.random()}`,
+						submittedAt: new Date().toISOString(),
+						status: "New",
+						...fields,
+					});
+					localStorage.setItem(storageKey, JSON.stringify(requests));
+					window.location.assign("jazzcontact.html?submitted=local");
+				} catch {
+					formStatus.textContent = "Could not save this request. Please try again or contact the band by email.";
+					formStatus.hidden = false;
+					button.disabled = false;
+					button.textContent = "Send gig request";
+				}
+			}
+		});
+	</script>
+</body>
+</html>
